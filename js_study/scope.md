@@ -1,27 +1,42 @@
-### **Return**
+### **Scope**
 
-- 함수에서 return은 output 같은 존재
-- input은 파라미터(매개변수) 개념
-- 함수에서 return을 만나면 그 밑은 실행되지 않는다 (함수가 종료된다).
+- Scope: 범위, 영역
 
 ```js
-function square(x) {
-    console.log('return 전');
-    return x * x;
-    console.log('return 후'); // dead 코드
+function myFunction() { // 블록문 (Block Statement)
+    let x = 3; // 로컬 변수, 지역 변수 (Local Variable)
+    console.log(x);
 }
 
-console.log('함수 호출 전');
-console.log(square(3));
-console.log('함수 호출 후');
+myFunction();
+console.log(x);
+-> 에러가 뜬다 (정의되지 않음)
 ```
 
-콘솔창에서 확인하면 'return 후'는 출력되지 않는다 (죽은 코드).
+변수 x는 myFunction 안에서만 유효하다.
 
-### return과 console.log의 차이
+```js
+let x = 3; // 글로벌 변수, 전역 변수 (Global Variable)
+function myFunction() { // 블록문 (Block Statement)
+    console.log(x);
+}
 
-- return은 함수의 결과를 내기만하고, console.log를 하지 않으면 콘솔창에서 보이지 않는다.
-- return없이 함수 안에서 console, console.log(함수)를 하면 undefined가 출력된다.
-- 이처럼 return이 없는 함수는 undefined로 출력된다.
-- return은 함수를 실행하고 어떤 값을 돌려주고,
-- console.log는 콘솔창에 어떤 값을 출력한다.
+myFunction();
+console.log(x);
+-> 에러가 뜨지 않는다.
+```
+
+```js
+let x = 3; // 글로벌 변수, 전역 변수 (Global Variable)
+function myFunction() { // 블록문 (Block Statement)
+    let x = 5;
+    console.log(x);
+}
+
+myFunction();
+console.log(x); // 5 3 
+```
+
+- 모든 변수에는 scope (변수의 유효범위)가 있는데, 그 기준은 중괄호로 감싸진 블록문이다. 
+- 로컬 변수는 블록문 내에서만 유효하고, 글로벌 변수는 어디에서나 유효하다.
+- 블록문 내에서 변수를 사용하고 싶다면 로컬 변수를 먼저 찾아 사용하고, 없을 경우에는 글로벌 변수를 사용한다.
